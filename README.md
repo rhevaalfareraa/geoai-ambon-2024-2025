@@ -6,8 +6,6 @@ Repositori ini berisi kode Google Earth Engine, data pendukung, hasil pemodelan,
 
 Analisis dilakukan menggunakan citra **Sentinel-2 Surface Reflectance Harmonized**, enam band spektral, empat indeks spektral, dan algoritma **Random Forest**. Hasil klasifikasi tahunan dibandingkan untuk mengidentifikasi area yang tetap, mengalami penambahan vegetasi (_gain_), atau mengalami kehilangan vegetasi (_loss_). Hasil tersebut kemudian disajikan melalui WebGIS interaktif.
 
-> **Catatan:** tautan repository, WebGIS, laporan, dan unduhan data besar pada README ini masih berupa placeholder. Ganti seluruh teks yang diawali `[ISI ...]` sebelum repository dipublikasikan.
-
 ---
 
 ## Tautan Proyek
