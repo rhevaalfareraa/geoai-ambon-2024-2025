@@ -145,12 +145,6 @@ function renderMethodology() {
       "Peta, statistik, insight, dan data unduhan",
     ],
   ];
-  document.getElementById("workflow").innerHTML = flow
-    .map(
-      (x, i) =>
-        `<article class="flow-step"><span class="flow-number">${i + 1}</span><i class="fa-solid ${x[0]}"></i><div><strong>${x[1]}</strong><p>${x[2]}</p></div></article>${i < flow.length - 1 ? '<div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>' : ""}`,
-    )
-    .join("");
   const rows = [
     [
       "Sentinel-2 SR Harmonized",

@@ -2556,3 +2556,36 @@ footer {
 #district-ranking {
   min-height: 80px;
 }
+
+/* Static workflow diagram image */
+.workflow-image-wrap {
+  margin: 0;
+  padding: 6px;
+  border-radius: 16px;
+  background: var(--card-bg);
+  text-align: center;
+}
+.workflow-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 1200px;
+  object-fit: contain;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--bg-color);
+}
+.workflow-image-wrap figcaption {
+  margin-top: 10px;
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.5;
+}
+@media (max-width: 768px) {
+  .workflow-image-wrap {
+    padding: 0;
+  }
+  .workflow-image {
+    border-radius: 10px;
+  }
+}
