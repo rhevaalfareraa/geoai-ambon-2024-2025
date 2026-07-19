@@ -285,7 +285,6 @@ Struktur berikut direkomendasikan agar kode GEE, WebGIS, data, hasil, dan lapora
 
 ```text
 geoai-ambon-2024-2025/
-geoai-ambon-2024-2025/
 ├── README.md
 │
 ├── data/
