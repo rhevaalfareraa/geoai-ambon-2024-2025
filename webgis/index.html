@@ -1,0 +1,695 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <meta
+      name="description"
+      content="WebGIS perubahan vegetasi Kota Ambon 2024–2025 menggunakan Sentinel-2 dan Random Forest."
+    />
+    <title>WebGIS Vegetasi Kota Ambon 2024–2025</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.fullscreen/3.0.2/Control.FullScreen.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css?v=20260719-hero-mapfit" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css"
+    />
+  </head>
+  <body>
+    <div id="app-loader" class="app-loader">
+      <div class="loader-ring"></div>
+      <p>Memuat WebGIS Kota Ambon…</p>
+    </div>
+    <header class="site-header">
+      <a
+        class="brand"
+        href="https://ambon.go.id"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Buka situs resmi Kota Ambon"
+      >
+        <img
+          src="./assets/Lambang_Ambon.png"
+          alt="Logo Kota Ambon"
+          class="brand-logo"
+        />
+
+        <span class="brand-copy">
+          <strong>WebGIS Vegetasi Ambon</strong>
+          <small>Sentinel-2 • Random Forest • 2024–2025</small>
+        </span>
+      </a>
+      <button id="mobile-menu" class="icon-btn" aria-label="Buka navigasi">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <nav id="main-nav" class="main-nav">
+        <button class="tab-btn active" data-tab="home-tab">
+          <i class="fa-solid fa-house"></i>Beranda
+        </button>
+        <button class="tab-btn" data-tab="map-tab">
+          <i class="fa-solid fa-map-location-dot"></i>Peta Hasil
+        </button>
+        <button class="tab-btn" data-tab="process-tab">
+          <i class="fa-solid fa-diagram-project"></i>Data & Proses
+        </button>
+        <button class="tab-btn" data-tab="evaluation-tab">
+          <i class="fa-solid fa-chart-column"></i>Evaluasi Model
+        </button>
+        <button class="tab-btn" data-tab="insight-tab">
+          <i class="fa-solid fa-lightbulb"></i>Insight Hasil
+        </button>
+      </nav>
+    </header>
+    <main>
+      <section id="home-tab" class="tab-panel active landing-page">
+        <div class="landing-hero">
+          <div class="landing-copy">
+            <span class="eyebrow">WEBGIS GEOAI KOTA AMBON</span>
+            <h1>
+              Memantau Perubahan Vegetasi Ambon melalui Citra Satelit dan
+              Machine Learning
+            </h1>
+            <p>
+              Dashboard ini menyajikan hasil klasifikasi vegetasi tahun 2024 dan
+              2025, lokasi penambahan vegetasi (gain), kehilangan vegetasi
+              (loss), sampel ground truth, serta evaluasi model Random Forest
+              secara interaktif.
+            </p>
+            <div class="hero-actions">
+              <button class="primary-cta" data-open-tab="map-tab">
+                <i class="fa-solid fa-map"></i>Jelajahi Peta</button
+              ><button class="secondary-cta" data-open-tab="process-tab">
+                <i class="fa-solid fa-microchip"></i>Lihat Metodologi</button
+              ><a
+                class="official-ambon-cta"
+                href="https://ambon.go.id"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                Mengenal Ambon Lebih Jauh
+              </a>
+            </div>
+          </div>
+          <div class="ambon-emblem-card">
+            <img
+              src="./assets/Lambang_Ambon.png"
+              alt="Lambang Kota Ambon"
+              onerror="
+                this.style.display = 'none';
+                this.nextElementSibling.style.display = 'grid';
+              "
+            />
+            <div class="logo-fallback">
+              <i class="fa-solid fa-landmark"></i><b>KOTA<br />AMBON</b>
+            </div>
+            <strong>Kota Ambon</strong><span>Bersatu Manggurebe Maju</span>
+          </div>
+        </div>
+        <div class="landing-stats">
+          <article>
+            <i class="fa-solid fa-map"></i><strong>5 Kecamatan</strong
+            ><span>Boundary administrasi tersedia</span>
+          </article>
+          <article>
+            <i class="fa-solid fa-location-dot"></i
+            ><strong>400 Ground Truth</strong><span>200 titik per tahun</span>
+          </article>
+          <article>
+            <i class="fa-solid fa-layer-group"></i
+            ><strong>10 Fitur Spektral</strong><span>6 band + 4 indeks</span>
+          </article>
+          <article>
+            <i class="fa-solid fa-tree"></i><strong>Random Forest</strong
+            ><span>150 decision trees</span>
+          </article>
+        </div>
+        <div class="landing-grid">
+          <article class="dashboard-card feature-story">
+            <span class="story-icon"><i class="fa-solid fa-city"></i></span>
+            <div>
+              <span class="section-label">MENGENAL WILAYAH STUDI</span>
+              <h2>Mengapa Kota Ambon?</h2>
+              <p>
+                Ambon merupakan ibu kota Provinsi Maluku yang berada pada
+                wilayah kepulauan dengan bentang alam pesisir dan perbukitan.
+                Kondisi topografi, perkembangan kawasan perkotaan, serta
+                pentingnya tutupan hijau bagi stabilitas lingkungan membuat
+                perubahan vegetasi relevan untuk dipantau secara berkala.
+              </p>
+              <p>
+                Pemantauan berbasis satelit membantu melihat pola perubahan
+                secara luas dan konsisten, termasuk area yang mengalami
+                penambahan maupun kehilangan tutupan vegetasi.
+              </p>
+            </div>
+          </article>
+          <article class="dashboard-card feature-story">
+            <span class="story-icon cyan"
+              ><i class="fa-solid fa-bullseye"></i
+            ></span>
+            <div>
+              <span class="section-label">FOKUS PREDIKSI</span>
+              <h2>Apa yang Diprediksi?</h2>
+              <p>
+                Model melakukan klasifikasi biner pada setiap piksel menjadi dua
+                kelas utama:
+              </p>
+              <div class="class-pills">
+                <span class="veg-pill"><i></i>Vegetasi</span
+                ><span class="nonveg-pill"><i></i>Nonvegetasi</span>
+              </div>
+              <p>
+                Hasil klasifikasi 2024 dan 2025 kemudian dibandingkan untuk
+                membentuk empat status perubahan: tetap nonvegetasi, gain
+                vegetasi, loss vegetasi, dan tetap vegetasi.
+              </p>
+            </div>
+          </article>
+        </div>
+        <div class="section-heading center">
+          <span class="eyebrow">DATA DAN TEKNOLOGI</span>
+          <h2>Komponen Utama Analisis</h2>
+          <p>
+            Kombinasi data penginderaan jauh, sampel referensi, dan algoritma
+            ensemble digunakan untuk menghasilkan informasi perubahan vegetasi.
+          </p>
+        </div>
+        <div class="tech-grid">
+          <article class="tech-card">
+            <i class="fa-solid fa-satellite"></i>
+            <h3>Sentinel-2 SR Harmonized</h3>
+            <p>
+              Citra multispektral tahun 2024 dan 2025 dengan resolusi spasial 10
+              meter serta cloud filter di bawah 20%.
+            </p>
+          </article>
+          <article class="tech-card">
+            <i class="fa-solid fa-wave-square"></i>
+            <h3>Feature Stack</h3>
+            <p>
+              Band B2, B3, B4, B8, B11, B12 dan indeks NDVI, NDWI, NDBI, serta
+              BSI.
+            </p>
+          </article>
+          <article class="tech-card">
+            <i class="fa-solid fa-location-crosshairs"></i>
+            <h3>Ground Truth</h3>
+            <p>
+              400 titik referensi vegetasi dan nonvegetasi untuk sampling,
+              pelatihan, dan pengujian model.
+            </p>
+          </article>
+          <article class="tech-card">
+            <i class="fa-solid fa-tree"></i>
+            <h3>Random Forest</h3>
+            <p>
+              Algoritma ensemble 150 trees dengan pembagian 70% training dan 30%
+              testing serta seed 42.
+            </p>
+          </article>
+        </div>
+        <div class="landing-cta">
+          <div>
+            <span class="section-label">MULAI EKSPLORASI</span>
+            <h2>Lihat perubahan vegetasi secara spasial</h2>
+            <p>
+              Aktifkan boundary, kecamatan, hasil klasifikasi, gain/loss, ground
+              truth, dan feature samples pada peta interaktif.
+            </p>
+          </div>
+          <button class="primary-cta light" data-open-tab="map-tab">
+            Buka Peta <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </section>
+      <section id="map-tab" class="tab-panel">
+        <div class="hero compact">
+          <div>
+            <span class="eyebrow">PETA HASIL ANALISIS</span>
+            <h1>Perubahan Vegetasi Kota Ambon 2024–2025</h1>
+            <p>
+              Eksplorasi layer administrasi, hasil klasifikasi, perubahan,
+              ground truth, dan feature stack samples.
+            </p>
+          </div>
+          <div class="hero-badge">
+            <i class="fa-solid fa-satellite"></i>
+            <span>Resolusi spasial<strong>10 meter</strong></span>
+          </div>
+        </div>
+
+        <div class="analysis-toolbar dashboard-card no-swipe-toolbar">
+          <div class="filter-group">
+            <label for="district-filter"
+              ><i class="fa-solid fa-filter"></i> Wilayah analisis</label
+            >
+            <select id="district-filter">
+              <option value="all">Seluruh Kota Ambon</option>
+            </select>
+          </div>
+          <div class="download-menu">
+            <button id="download-active" class="action-btn neutral">
+              <i class="fa-solid fa-download"></i>Unduh Layer Aktif
+            </button>
+            <button id="download-stats" class="action-btn ghost">
+              <i class="fa-solid fa-file-csv"></i>Unduh Statistik
+            </button>
+          </div>
+        </div>
+
+        <div id="district-insight" class="dynamic-insight">
+          <i class="fa-solid fa-circle-info"></i>
+          <span>Menampilkan ringkasan untuk seluruh Kota Ambon.</span>
+        </div>
+
+        <div class="map-analysis-note">
+          <i class="fa-solid fa-circle-info"></i>
+          <div>
+            <strong>Catatan interpretasi peta</strong>
+            <span
+              >Hasil merupakan estimasi Random Forest dari Sentinel-2 resolusi
+              10 meter. Polygon kecil telah difilter agar WebGIS tetap ringan
+              dan hasil perubahan tetap perlu diverifikasi dengan data tambahan
+              atau pengecekan lapangan.</span
+            >
+          </div>
+        </div>
+
+        <div
+          id="layer-error-panel"
+          class="layer-error-panel hidden"
+          role="alert"
+        ></div>
+        <div id="kpi-grid" class="kpi-grid"></div>
+
+        <div class="map-layout map-layout-reference">
+          <div class="map-shell map-shell-reference">
+            <div id="map"></div>
+
+            <button
+              id="floating-layer-button"
+              class="floating-map-button"
+              type="button"
+            >
+              <i class="fa-solid fa-layer-group"></i><span>Layers</span>
+            </button>
+
+            <aside
+              id="floating-layer-panel"
+              class="map-sidebar floating-layer-panel dashboard-card"
+            >
+              <div class="card-head">
+                <div>
+                  <span class="section-label">KONTROL PETA</span>
+                  <h2>Layer Analisis</h2>
+                </div>
+                <button
+                  id="close-layer-panel"
+                  class="panel-close"
+                  aria-label="Tutup panel"
+                >
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
+              <div id="layer-toggles" class="layer-toggles"></div>
+              <div class="divider"></div>
+              <h3>Fokus Perubahan</h3>
+              <div class="button-stack">
+                <button
+                  type="button"
+                  id="focus-gain-button"
+                  class="action-btn gain"
+                  onclick="runFocusButton('gain', this)"
+                >
+                  <i class="fa-solid fa-arrow-trend-up"></i>
+                  <span>Fokus Gain</span>
+                </button>
+                <button
+                  type="button"
+                  id="focus-loss-button"
+                  class="action-btn loss"
+                  onclick="runFocusButton('loss', this)"
+                >
+                  <i class="fa-solid fa-arrow-trend-down"></i>
+                  <span>Fokus Loss</span>
+                </button>
+                <button
+                  type="button"
+                  class="action-btn ghost"
+                  id="reset-map"
+                  onclick="runResetMapButton(this)"
+                >
+                  <i class="fa-solid fa-arrows-to-circle"></i>
+                  <span>Reset Peta</span>
+                </button>
+              </div>
+              <div id="active-layer-stats" class="active-layer-stats">
+                <span class="section-label">LAYER AKTIF</span
+                ><strong>Memuat statistik…</strong>
+              </div>
+            </aside>
+
+            <div id="map-status" class="map-status">
+              <span class="pulse"></span>Memuat layer perubahan tutupan lahan…
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="process-tab" class="tab-panel">
+        <div class="section-heading">
+          <span class="eyebrow">METODOLOGI</span>
+          <h1>Data dan Proses Analisis</h1>
+          <p>
+            Rangkaian pengolahan citra, pembentukan fitur, pelatihan model,
+            evaluasi, dan publikasi hasil.
+          </p>
+        </div>
+        <div id="method-cards" class="info-grid"></div>
+        <div class="dashboard-card flow-card">
+          <div class="card-head">
+            <div>
+              <span class="section-label">DIAGRAM WORKFLOW</span>
+              <h2>Alur Metodologi Penelitian</h2>
+              <p>
+                Setiap tahap mengalir dari data mentah hingga visualisasi
+                WebGIS.
+              </p>
+            </div>
+          </div>
+          <div id="workflow" class="workflow enhanced-workflow"></div>
+        </div>
+        <div class="dashboard-card">
+          <div class="card-head">
+            <div>
+              <span class="section-label">METADATA</span>
+              <h2>Dataset yang Digunakan</h2>
+            </div>
+          </div>
+          <div id="dataset-table" class="table-wrap"></div>
+        </div>
+        <div class="method-note">
+          <i class="fa-solid fa-circle-exclamation"></i>
+          <p>
+            <b>Catatan reproducibility:</b> seed 42 digunakan agar pembagian
+            training dan testing dapat dijalankan ulang secara konsisten.
+          </p>
+        </div>
+      </section>
+      <section id="evaluation-tab" class="tab-panel">
+        <div class="section-heading">
+          <span class="eyebrow">VALIDASI MODEL</span>
+          <h1>Evaluasi Random Forest</h1>
+          <p>
+            Hasil testing menjadi dasar utama untuk menilai kemampuan
+            generalisasi model.
+          </p>
+        </div>
+        <div id="eval-kpis" class="kpi-grid"></div>
+        <div class="two-col">
+          <div class="dashboard-card chart-card">
+            <div class="card-head">
+              <div>
+                <span class="section-label">METRIK TESTING</span>
+                <h2>Accuracy, Precision, Recall, F1</h2>
+              </div>
+            </div>
+            <canvas id="aprf-chart"></canvas>
+          </div>
+          <div class="dashboard-card">
+            <div class="card-head">
+              <div>
+                <span class="section-label">CONFUSION MATRIX</span>
+                <h2>Aktual vs Prediksi</h2>
+              </div>
+            </div>
+            <div id="confusion-matrix" class="confusion-wrap"></div>
+          </div>
+        </div>
+        <div class="two-col evaluation-extra">
+          <div class="dashboard-card chart-card">
+            <div class="card-head">
+              <div>
+                <span class="section-label">KONTRIBUSI FITUR</span>
+                <h2>Feature Importance Random Forest</h2>
+              </div>
+            </div>
+            <canvas id="feature-importance-chart"></canvas>
+            <p class="chart-footnote">
+              Nilai importance berasal dari output model Random Forest dan
+              menunjukkan kontribusi relatif setiap fitur.
+            </p>
+          </div>
+          <div class="dashboard-card chart-card">
+            <div class="card-head">
+              <div>
+                <span class="section-label">PEMBAGIAN SAMPEL</span>
+                <h2>Training dan Testing</h2>
+              </div>
+            </div>
+            <canvas id="sample-split-chart"></canvas>
+            <div id="sample-distribution" class="sample-distribution"></div>
+          </div>
+        </div>
+        <div id="evaluation-narrative" class="narrative-grid"></div>
+      </section>
+      <section id="insight-tab" class="tab-panel">
+        <div class="section-heading">
+          <span class="eyebrow">TEMUAN UTAMA & REKOMENDASI</span>
+          <h1>Insight Perubahan Vegetasi Kota Ambon</h1>
+          <p>
+            Informasi ini membantu menjawab apa yang berubah, di mana perubahan
+            terjadi, seberapa besar tekanannya, dan tindakan apa yang perlu
+            diprioritaskan.
+          </p>
+        </div>
+        <div id="insight-summary" class="kpi-grid"></div>
+
+        <div class="dashboard-card key-findings-card">
+          <div class="card-head">
+            <div>
+              <span class="section-label">TEMUAN UTAMA</span>
+              <h2>Ringkasan yang Perlu Diperhatikan</h2>
+            </div>
+          </div>
+          <div class="key-findings-grid">
+            <article>
+              <i class="fa-solid fa-arrow-trend-up"></i>
+              <div>
+                <strong>Vegetasi meningkat secara bersih</strong>
+                <p>
+                  Peningkatan bersih tidak otomatis berarti rehabilitasi;
+                  pengaruh musim, regenerasi alami, dan perbedaan kondisi citra
+                  tetap perlu dipertimbangkan.
+                </p>
+              </div>
+            </article>
+            <article>
+              <i class="fa-solid fa-triangle-exclamation"></i>
+              <div>
+                <strong>Area loss tetap menjadi prioritas</strong>
+                <p>
+                  Patch loss terbesar perlu diperiksa terutama bila berdekatan
+                  dengan permukiman, jalan, atau kawasan pengembangan.
+                </p>
+              </div>
+            </article>
+            <article>
+              <i class="fa-solid fa-location-crosshairs"></i>
+              <div>
+                <strong>Validasi lapangan tetap dibutuhkan</strong>
+                <p>
+                  Hasil model sebaiknya menjadi alat screening awal sebelum
+                  digunakan dalam keputusan tata ruang atau pengawasan
+                  lingkungan.
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="insight-status-grid">
+          <article class="status-card positive">
+            <i class="fa-solid fa-circle-check"></i>
+            <div>
+              <span>STATUS UMUM</span><strong>Perubahan bersih positif</strong>
+              <p id="status-positive-text">Memuat ringkasan perubahan…</p>
+            </div>
+          </article>
+          <article class="status-card attention">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <div>
+              <span>PERLU PERHATIAN</span
+              ><strong>Area loss tetap ditemukan</strong>
+              <p id="status-attention-text">
+                Memuat informasi kehilangan vegetasi…
+              </p>
+            </div>
+          </article>
+          <article class="status-card priority">
+            <i class="fa-solid fa-location-crosshairs"></i>
+            <div>
+              <span>PRIORITAS</span><strong>Verifikasi patch terbesar</strong>
+              <p>
+                Gunakan zona prioritas indikatif sebagai lokasi pemeriksaan
+                citra resolusi tinggi dan survei lapangan.
+              </p>
+            </div>
+          </article>
+        </div>
+
+        <div class="two-col">
+          <div class="dashboard-card chart-card">
+            <div class="card-head">
+              <div>
+                <span class="section-label">PERBANDINGAN TAHUNAN</span>
+                <h2>Luas Vegetasi</h2>
+              </div>
+            </div>
+            <canvas id="area-chart"></canvas>
+          </div>
+          <div class="dashboard-card chart-card">
+            <div class="card-head">
+              <div>
+                <span class="section-label">STATUS PERUBAHAN</span>
+                <h2>Komposisi Change Map</h2>
+              </div>
+            </div>
+            <canvas id="change-chart"></canvas>
+          </div>
+        </div>
+
+        <div class="dashboard-card district-analysis-card">
+          <div class="card-head">
+            <div>
+              <span class="section-label">ANALISIS ADMINISTRATIF</span>
+              <h2>Ranking Kecamatan dan Indeks Tekanan Vegetasi</h2>
+              <p>
+                Indeks tekanan = loss / vegetasi 2024 × 100%. Kategori bersifat
+                analitis, bukan standar resmi.
+              </p>
+            </div>
+            <button class="action-btn neutral" id="show-priority-layer">
+              <i class="fa-solid fa-map"></i>Tampilkan Zona Prioritas
+            </button>
+          </div>
+          <div id="district-ranking" class="table-wrap"></div>
+        </div>
+
+        <div class="two-col">
+          <div class="dashboard-card">
+            <div class="card-head">
+              <div>
+                <span class="section-label">PATCH TERBESAR</span>
+                <h2>Top 5 Gain Vegetasi</h2>
+              </div>
+            </div>
+            <div id="top-gain" class="ranking-list"></div>
+          </div>
+          <div class="dashboard-card">
+            <div class="card-head">
+              <div>
+                <span class="section-label">PATCH TERBESAR</span>
+                <h2>Top 5 Loss Vegetasi</h2>
+              </div>
+            </div>
+            <div id="top-loss" class="ranking-list"></div>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="dashboard-card prose-card">
+            <div class="card-head">
+              <div>
+                <span class="section-label">INSIGHT SPASIAL</span>
+                <h2>Makna Hasil</h2>
+              </div>
+            </div>
+            <div id="insight-text"></div>
+          </div>
+          <div class="dashboard-card uncertainty-card">
+            <div class="card-head">
+              <div>
+                <span class="section-label">TINGKAT KEYAKINAN</span>
+                <h2>Seberapa Yakin Hasil Ini?</h2>
+              </div>
+            </div>
+            <div id="uncertainty-panel"></div>
+          </div>
+        </div>
+
+        <div class="dashboard-card recommendation-card">
+          <div class="card-head">
+            <div>
+              <span class="section-label">REKOMENDASI KEBIJAKAN</span>
+              <h2>Arah Tindak Lanjut Pemerintah Kota Ambon</h2>
+              <p>
+                Rekomendasi disusun sebagai dukungan keputusan dan sistem
+                peringatan dini, bukan dasar tunggal penetapan pelanggaran.
+              </p>
+            </div>
+          </div>
+          <div
+            id="government-recommendations"
+            class="recommendation-grid"
+          ></div>
+        </div>
+
+        <div class="dashboard-card action-plan-card">
+          <div class="card-head">
+            <div>
+              <span class="section-label">RENCANA IMPLEMENTASI</span>
+              <h2>Roadmap Tindak Lanjut</h2>
+            </div>
+          </div>
+          <div id="action-plan" class="timeline-grid"></div>
+        </div>
+
+        <div class="dashboard-card prose-card">
+          <div class="card-head">
+            <div>
+              <span class="section-label">CATATAN ANALISIS</span>
+              <h2>Keterbatasan</h2>
+            </div>
+          </div>
+          <div id="limitations"></div>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <span>WebGIS Analisis Perubahan Vegetasi Kota Ambon 2024–2025</span
+      ><span>Sentinel-2 SR Harmonized • Random Forest 150 trees</span>
+    </footer>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.fullscreen/3.0.2/Control.FullScreen.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+    <script src="https://unpkg.com/georaster"></script>
+    <script src="https://unpkg.com/georaster-layer-for-leaflet"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@7/turf.min.js"></script>
+    <script src="js/config.js?v=20260719-hero-mapfit"></script>
+    <script src="js/data-loader.js?v=20260719-hero-mapfit"></script>
+    <script src="js/map.js?v=20260719-hero-mapfit"></script>
+    <script src="js/charts.js?v=20260719-hero-mapfit"></script>
+    <script src="js/dashboard.js?v=20260719-hero-mapfit"></script>
+    <script src="js/app.js?v=20260719-hero-mapfit"></script>
+  </body>
+</html>

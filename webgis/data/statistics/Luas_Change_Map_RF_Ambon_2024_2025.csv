@@ -1,0 +1,5 @@
+system:index,area_ha,area_km2,category,change_code,percentage_of_city,.geo
+0,4939.969442159428,49.399694421594276,Tetap non-vegetasi,0,16.242323152498486,"{""type"":""MultiPoint"",""coordinates"":[]}"
+1,1161.3796012342505,11.613796012342505,Gain vegetasi,1,3.8185464519231216,"{""type"":""MultiPoint"",""coordinates"":[]}"
+2,760.3078316135865,7.603078316135865,Loss vegetasi,2,2.499846535699427,"{""type"":""MultiPoint"",""coordinates"":[]}"
+3,23346.57453618092,233.4657453618092,Tetap vegetasi,3,76.7621363979087,"{""type"":""MultiPoint"",""coordinates"":[]}"

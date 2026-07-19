@@ -1,0 +1,3 @@
+system:index,area_ha,area_km2,category,class,percentage_of_city,year,.geo
+0,5702.932196161917,57.02932196161917,Non-vegetasi,0,18.750898913730634,2025,"{""type"":""MultiPoint"",""coordinates"":[]}"
+1,24664.85587300054,246.6485587300054,Vegetasi,1,81.0965663431215,2025,"{""type"":""MultiPoint"",""coordinates"":[]}"

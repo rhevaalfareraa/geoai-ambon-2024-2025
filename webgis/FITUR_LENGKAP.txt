@@ -1,0 +1,29 @@
+WEBGIS AMBON — VERSI FITUR LENGKAP
+
+Versi ini mempertahankan struktur dan fitur WebGIS Ambon Insightful Light secara utuh:
+- 4 tab utama
+- Peta interaktif dengan basemap Map/Satellite
+- Layer control mengambang
+- Change map raster 4 kelas
+- Vegetasi 2024 dan 2025
+- Gain dan loss
+- Boundary dan kecamatan
+- Ground Truth 2024/2025
+- Feature Samples 2024/2025
+- Zona prioritas indikatif
+- Filter kecamatan
+- Slider perbandingan 2024–2025
+- Drawing tools
+- Fullscreen dan scale control
+- Download layer aktif
+- Download statistik
+- KPI dinamis dari CSV
+- Evaluasi model dan confusion matrix
+- APRF chart
+- Feature importance chart
+- Sample split chart
+- Analisis insight dan ranking kecamatan
+- Dataset table dan workflow lengkap
+
+Jalankan melalui local server:
+python3 -m http.server 8000
