@@ -26,7 +26,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     />
-    <link rel="stylesheet" href="css/style.css?v=20260719-hero-mapfit" />
+    <link rel="stylesheet" href="css/style.css?v=20260719-insight-restored" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css"
@@ -49,13 +49,26 @@
           src="./assets/Lambang_Ambon.png"
           alt="Logo Kota Ambon"
           class="brand-logo"
+          onerror="
+            this.style.display = 'none';
+            this.nextElementSibling.style.display = 'flex';
+          "
         />
+
+        <span
+          class="brand-icon ambon-logo-fallback"
+          style="display: none"
+          aria-hidden="true"
+        >
+          A
+        </span>
 
         <span class="brand-copy">
           <strong>WebGIS Vegetasi Ambon</strong>
           <small>Sentinel-2 • Random Forest • 2024–2025</small>
         </span>
       </a>
+
       <button id="mobile-menu" class="icon-btn" aria-label="Buka navigasi">
         <i class="fa-solid fa-bars"></i>
       </button>
@@ -590,7 +603,11 @@
               <i class="fa-solid fa-map"></i>Tampilkan Zona Prioritas
             </button>
           </div>
-          <div id="district-ranking" class="table-wrap"></div>
+          <div id="district-ranking" class="table-wrap">
+            <div class="content-loading-placeholder">
+              Memuat ranking kecamatan…
+            </div>
+          </div>
         </div>
 
         <div class="two-col">
@@ -631,7 +648,11 @@
                 <h2>Seberapa Yakin Hasil Ini?</h2>
               </div>
             </div>
-            <div id="uncertainty-panel"></div>
+            <div id="uncertainty-panel">
+              <div class="content-loading-placeholder">
+                Memuat tingkat keyakinan model…
+              </div>
+            </div>
           </div>
         </div>
 
@@ -646,10 +667,11 @@
               </p>
             </div>
           </div>
-          <div
-            id="government-recommendations"
-            class="recommendation-grid"
-          ></div>
+          <div id="government-recommendations" class="recommendation-grid">
+            <div class="content-loading-placeholder">
+              Memuat rekomendasi kebijakan…
+            </div>
+          </div>
         </div>
 
         <div class="dashboard-card action-plan-card">
@@ -659,7 +681,11 @@
               <h2>Roadmap Tindak Lanjut</h2>
             </div>
           </div>
-          <div id="action-plan" class="timeline-grid"></div>
+          <div id="action-plan" class="timeline-grid">
+            <div class="content-loading-placeholder">
+              Memuat roadmap implementasi…
+            </div>
+          </div>
         </div>
 
         <div class="dashboard-card prose-card">
@@ -685,11 +711,11 @@
     <script src="https://unpkg.com/georaster"></script>
     <script src="https://unpkg.com/georaster-layer-for-leaflet"></script>
     <script src="https://cdn.jsdelivr.net/npm/@turf/turf@7/turf.min.js"></script>
-    <script src="js/config.js?v=20260719-hero-mapfit"></script>
-    <script src="js/data-loader.js?v=20260719-hero-mapfit"></script>
-    <script src="js/map.js?v=20260719-hero-mapfit"></script>
-    <script src="js/charts.js?v=20260719-hero-mapfit"></script>
-    <script src="js/dashboard.js?v=20260719-hero-mapfit"></script>
-    <script src="js/app.js?v=20260719-hero-mapfit"></script>
+    <script src="js/config.js?v=20260719-insight-restored"></script>
+    <script src="js/data-loader.js?v=20260719-insight-restored"></script>
+    <script src="js/map.js?v=20260719-insight-restored"></script>
+    <script src="js/charts.js?v=20260719-insight-restored"></script>
+    <script src="js/dashboard.js?v=20260719-insight-restored"></script>
+    <script src="js/app.js?v=20260719-insight-restored"></script>
   </body>
 </html>
