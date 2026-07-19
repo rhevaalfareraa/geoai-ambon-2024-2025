@@ -422,7 +422,7 @@ https://code.earthengine.google.com/
 ## 2. Clone atau Unduh Repository
 
 ```bash
-git clone [ISI URL REPOSITORY]
+git clone https://github.com/rhevaalfareraa/geoai-ambon-2024-2025
 cd geoai-ambon-2024-2025
 ```
 
