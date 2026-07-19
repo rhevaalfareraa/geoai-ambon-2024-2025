@@ -17,7 +17,7 @@ Analisis dilakukan menggunakan citra **Sentinel-2 Surface Reflectance Harmonized
 | Repository GitHub            | https://github.com/rhevaalfareraa/geoai-ambon-2024-2025                     |
 | WebGIS publik                | https://ambon-vegetation-change.vercel.app                               |
 | Laporan akhir PDF            | [ISI TAUTAN LAPORAN]                                |
-| Unduhan data berukuran besar | [ISI TAUTAN GOOGLE DRIVE / ZENODO / GITHUB RELEASE] |
+| Unduhan data berukuran besar | https://drive.google.com/drive/folders/1wRfvb2dTbw1T-yricVFguRaPfswNqwo_?usp=sharing |
 
 ---
 
@@ -25,6 +25,7 @@ Analisis dilakukan menggunakan citra **Sentinel-2 Surface Reflectance Harmonized
 
 | Komponen             | Keterangan                                                                                                               |
 | -------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| Kelompok             | 2 |
 | Judul                | Analisis Perubahan Vegetasi Kota Ambon Tahun 2024–2025 Menggunakan Sentinel-2 dan Random Forest pada Google Earth Engine |
 | Mata kuliah          | Maha Data dan Kapita Selekta Sistem Informasi                                                                            |
 | Program studi        | Sistem Informasi                                                                                                         |
@@ -42,8 +43,6 @@ Analisis dilakukan menggunakan citra **Sentinel-2 Surface Reflectance Harmonized
 ---
 
 ## Anggota Kelompok 2
-
-Pembagian tugas berikut dirangkum dari file **Tracklist Pengerjaan Final Exam KS & Big Data (TEAM 2)**. NIM dapat dilengkapi sebelum repository dipublikasikan.
 
 | Nama                         | NIM        | Fokus Kontribusi                                                                                                                                                                                                                                                                                                                                                                                                               |
 | ---------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -288,70 +287,115 @@ Struktur berikut direkomendasikan agar kode GEE, WebGIS, data, hasil, dan lapora
 
 ```text
 geoai-ambon-2024-2025/
+geoai-ambon-2024-2025/
 ├── README.md
+│
+├── data/
+│   ├── boundary/
+│   │   └── kecamatan_ambon copy.geojson
+│   │
+│   ├── ground_truth/
+│   │   ├── ground_truth_ambon_2024_200_webgis copy.geojson
+│   │   └── ground_truth_ambon_2025_200_webgis copy.geojson
+│   │
+│   └── samples/
+│       ├── feature_stack_samples_ambon_2024_200_v2 copy.geojson
+│       └── feature_stack_samples_ambon_2025_200 copy.geojson
 │
 ├── gee/
 │   ├── 01_preprocessing_2024.js
 │   ├── 02_preprocessing_2025.js
 │   └── 03_random_forest_change_detection.js
 │
-├── data/
-│   ├── boundary/
-│   │   ├── boundary_kota_ambon.geojson
-│   │   └── kecamatan_ambon.geojson
-│   │
-│   ├── ground_truth/
-│   │   ├── ground_truth_ambon_2024_200_v2.geojson
-│   │   └── ground_truth_ambon_2025_200_v2.geojson
-│   │
-│   └── samples/
-│       ├── feature_stack_samples_ambon_2024_200_v2.geojson
-│       └── feature_stack_samples_ambon_2025_200.geojson
+├── report/
+│   ├── Laporan_Team2_GeoAI_Kota_Ambon_2024_2025.pdf
+│   └── Powerpoint_Team2_GeoAI_Kota_Ambon_2024_2025.pdf
 │
 ├── results/
-│   ├── raster/
-│   │   ├── RF_Klasifikasi_Ambon_2024.tif
-│   │   ├── RF_Klasifikasi_Ambon_2025.tif
-│   │   └── RF_Change_Map_Ambon_2024_2025.tif
+│   ├── figures/
+│   │   ├── chart_feature_importance.png
+│   │   ├── confusion_matrix_testing.png
+│   │   ├── visualisasi_change_map_2024_2025.jpg
+│   │   ├── visualisasi_klasifikasi_2024.png
+│   │   └── visualisasi_klasifikasi_2025.png
 │   │
-│   ├── vector/
-│   │   ├── target_vegetasi_ambon_2024.geojson
-│   │   ├── target_vegetasi_ambon_2025.geojson
-│   │   ├── gain_vegetasi_ambon_2024_2025.geojson
-│   │   └── loss_vegetasi_ambon_2024_2025.geojson
+│   ├── raster/
+│   │   ├── RF_Change_Map_Ambon_2024_2025 copy.tif
+│   │   ├── RF_Klasifikasi_Biner_Ambon_2024 copy.tif
+│   │   ├── RF_Klasifikasi_Biner_Ambon_2025 copy.tif
+│   │   └── RF_Status_Perubahan_Ambon_2024_2025 copy.tif
 │   │
 │   ├── statistics/
-│   │   ├── Evaluasi_APRF_RF_Ambon_2024_2025.csv
-│   │   ├── Luas_Kelas_RF_Ambon_2024.csv
-│   │   ├── Luas_Kelas_RF_Ambon_2025.csv
-│   │   ├── Luas_Change_Map_RF_Ambon_2024_2025.csv
-│   │   └── Ringkasan_Perubahan_Kuantitatif_Ambon_2024_2025.csv
+│   │   ├── Evaluasi_APRF_RF_Ambon_2024_2025 copy.csv
+│   │   ├── Luas_Change_Map_RF_Ambon_2024_2025 copy.csv
+│   │   ├── Luas_Kelas_RF_Ambon_2024 copy.csv
+│   │   ├── Luas_Kelas_RF_Ambon_2025 copy.csv
+│   │   ├── Ringkasan_Perubahan_Kuantitatif_Ambon_2024_2025 copy.csv
+│   │   └── statistik_kecamatan_prahitung copy.json
 │   │
-│   └── figures/
-│       └── [gambar peta, confusion matrix, dan chart]
+│   ├── supporting/
+│   │   ├── RF_Samples_Ambon_2024_2025 copy.csv
+│   │   └── RF_Testing_Result_Ambon_2024_2025 copy.csv
+│   │
+│   └── vector/
+│       ├── gain_vegetasi_ambon_2024_2025 copy.geojson
+│       ├── loss_vegetasi_ambon_2024_2025 copy.geojson
+│       ├── rf_change_map_ambon_2024_2025 copy.geojson
+│       ├── target_vegetasi_ambon_2024 copy.geojson
+│       └── target_vegetasi_ambon_2025 copy.geojson
 │
-├── webgis/
-│   ├── index.html
-│   ├── README.md
-│   │
-│   ├── css/
-│   │   └── style.css
-│   │
-│   ├── js/
-│   │   ├── config.js
-│   │   ├── data-loader.js
-│   │   ├── map.js
-│   │   ├── charts.js
-│   │   ├── dashboard.js
-│   │   └── app.js
-│   │
-│   └── data/
-│       ├── spatial/
-│       ├── statistics/
-│       └── supporting/
-│
-└── report/
-    └── Laporan_GeoAI_Kota_Ambon_2024_2025.pdf
+└── webgis/
+    ├── index.html
+    ├── README.md
+    ├── FITUR_LENGKAP.txt
+    │
+    ├── assets/
+    │   ├── Lambang_Ambon.png
+    │   └── workflow-diagram.png
+    │
+    ├── css/
+    │   └── style.css
+    │
+    ├── js/
+    │   ├── app.js
+    │   ├── charts.js
+    │   ├── config.js
+    │   ├── dashboard.js
+    │   ├── data-loader.js
+    │   └── map.js
+    │
+    └── data/
+        ├── raster/
+        │   ├── RF_Change_Map_Ambon_2024_2025.tif
+        │   ├── RF_Klasifikasi_Biner_Ambon_2024.tif
+        │   ├── RF_Klasifikasi_Biner_Ambon_2025.tif
+        │   └── RF_Status_Perubahan_Ambon_2024_2025.tif
+        │
+        ├── spatial/
+        │   ├── boundary_kota_ambon.geojson
+        │   ├── cakupan_data_ambon.geojson
+        │   ├── feature_stack_samples_ambon_2024_200_v2.geojson
+        │   ├── feature_stack_samples_ambon_2025_200.geojson
+        │   ├── gain_vegetasi_ambon_2024_2025.geojson
+        │   ├── ground_truth_ambon_2024_200_webgis.geojson
+        │   ├── ground_truth_ambon_2025_200_webgis.geojson
+        │   ├── kecamatan_ambon.geojson
+        │   ├── loss_vegetasi_ambon_2024_2025.geojson
+        │   ├── rf_change_map_ambon_2024_2025.geojson
+        │   ├── target_vegetasi_ambon_2024.geojson
+        │   └── target_vegetasi_ambon_2025.geojson
+        │
+        ├── statistics/
+        │   ├── Evaluasi_APRF_RF_Ambon_2024_2025.csv
+        │   ├── Luas_Change_Map_RF_Ambon_2024_2025.csv
+        │   ├── Luas_Kelas_RF_Ambon_2024.csv
+        │   ├── Luas_Kelas_RF_Ambon_2025.csv
+        │   ├── Ringkasan_Perubahan_Kuantitatif_Ambon_2024_2025.csv
+        │   └── statistik_kecamatan_prahitung.json
+        │
+        └── supporting/
+            ├── RF_Samples_Ambon_2024_2025.csv
+            └── RF_Testing_Result_Ambon_2024_2025.csv
 ```
 
 Nama file aktual dapat berbeda. Semua path WebGIS harus disinkronkan melalui `webgis/js/config.js`.
@@ -901,14 +945,11 @@ Gunakan tabel berikut:
 
 | File               | Format  | Keterangan                          | Tautan       |
 | ------------------ | ------- | ----------------------------------- | ------------ |
-| Feature stack 2024 | GeoTIFF | 10 fitur model tahun 2024           | [ISI TAUTAN] |
-| Feature stack 2025 | GeoTIFF | 10 fitur model tahun 2025           | [ISI TAUTAN] |
-| Klasifikasi 2024   | GeoTIFF | Hasil Random Forest 2024            | [ISI TAUTAN] |
-| Klasifikasi 2025   | GeoTIFF | Hasil Random Forest 2025            | [ISI TAUTAN] |
-| Change map         | GeoTIFF | Empat kelas perubahan 2024–2025     | [ISI TAUTAN] |
-| Paket WebGIS       | ZIP     | WebGIS beserta data yang diperlukan | [ISI TAUTAN] |
-
-Pastikan izin tautan diatur menjadi dapat dibaca oleh dosen atau publik sesuai kebutuhan.
+| Feature stack 2024 | GeoTIFF | 10 fitur model tahun 2024           | https://drive.google.com/file/d/18iRViIRv1FBUANU_GoV_E7sWqyIxXzuR/view?usp=drive_link |
+| Feature stack 2025 | GeoTIFF | 10 fitur model tahun 2025           | https://drive.google.com/file/d/1MdWXiIZOhPPa1daSMiJxnh6mGyrQD3Ll/view?usp=drive_link |
+| Klasifikasi 2024   | GeoTIFF | Hasil Random Forest 2024            | https://drive.google.com/file/d/19FLzOKmDHh3uuqSKzNzXpuuoLjaG-_Zp/view?usp=drive_link |
+| Klasifikasi 2025   | GeoTIFF | Hasil Random Forest 2025            | https://drive.google.com/file/d/1B3ycAmcf-nRfWpLI0XdzDqdB63_rN5J-/view?usp=drive_link |
+| Change map         | GeoTIFF | Empat kelas perubahan 2024–2025     | https://drive.google.com/file/d/1kAkMsiVSmvDb9TpgUMOLyT7TWqhJHlvB/view?usp=drive_link |
 
 ---
 
@@ -1075,6 +1116,12 @@ Berbasis WebGIS,” Universitas Bakrie, 2026.
 
 ## Lisensi
 
-[ISI JENIS LISENSI, misalnya MIT untuk kode dan CC BY 4.0 untuk dokumentasi/data yang diizinkan]
+## Lisensi
 
-Pastikan data dari pihak ketiga tetap mengikuti ketentuan lisensi dan atribusi dari sumber aslinya.
+Source code dalam repository ini, termasuk kode Google Earth Engine dan WebGIS, dikembangkan oleh Team 2 dan dilisensikan menggunakan MIT License.
+
+Dokumentasi, laporan, diagram, dan visualisasi yang dibuat oleh Team 2 dilisensikan menggunakan Creative Commons Attribution 4.0 International (CC BY 4.0).
+
+Hak cipta © 2026 Team 2 GeoAI Kota Ambon.
+
+Lisensi tersebut hanya berlaku pada karya yang dibuat oleh Team 2. Data dan materi dari pihak ketiga, termasuk citra Sentinel-2, batas administrasi, basemap, library, logo, serta sumber eksternal lainnya, tetap mengikuti ketentuan lisensi dan atribusi dari masing-masing penyedia.
