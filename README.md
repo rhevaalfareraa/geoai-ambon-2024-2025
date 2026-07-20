@@ -14,7 +14,7 @@ Analisis dilakukan menggunakan citra **Sentinel-2 Surface Reflectance Harmonized
 | ---------------------------- | --------------------------------------------------- |
 | Repository GitHub            | https://github.com/rhevaalfareraa/geoai-ambon-2024-2025                     |
 | WebGIS publik                | https://ambon-vegetation-change.vercel.app                               |
-| Laporan akhir PDF            | [ISI TAUTAN LAPORAN]                                |
+| Laporan akhir PDF            | https://drive.google.com/drive/folders/1QLcenh_mQwFGC6YtiH3DaE_xrRTRNSgY?usp=sharing                               |
 | Unduhan data berukuran besar | https://drive.google.com/drive/folders/1wRfvb2dTbw1T-yricVFguRaPfswNqwo_?usp=sharing |
 
 ---
