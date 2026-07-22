@@ -1113,8 +1113,6 @@ Berbasis WebGIS,” Universitas Bakrie, 2026.
 
 ## Lisensi
 
-## Lisensi
-
 Source code dalam repository ini, termasuk kode Google Earth Engine dan WebGIS, dikembangkan oleh Team 2 dan dilisensikan menggunakan MIT License.
 
 Dokumentasi, laporan, diagram, dan visualisasi yang dibuat oleh Team 2 dilisensikan menggunakan Creative Commons Attribution 4.0 International (CC BY 4.0).
