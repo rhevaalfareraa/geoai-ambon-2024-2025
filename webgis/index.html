@@ -480,6 +480,10 @@
               Nilai importance berasal dari output model Random Forest dan
               menunjukkan kontribusi relatif setiap fitur.
             </p>
+            <p class="chart-footnote">
+              Berdasarkan output model terbaru, B12 merupakan fitur dengan
+              kontribusi tertinggi, diikuti BSI dan B4.
+            </p>
           </div>
           <div class="dashboard-card chart-card">
             <div class="card-head">
@@ -728,5 +732,84 @@
     <script src="js/charts.js?v=20260719-insight-restored"></script>
     <script src="js/dashboard.js?v=20260719-insight-restored"></script>
     <script src="js/app.js?v=20260719-insight-restored"></script>
+
+    <!-- Tambahan: override data Feature Importance sesuai output Random Forest terbaru -->
+    <script>
+      window.addEventListener("load", function () {
+        const featureImportanceData = [
+          ["B12", 31.20859691278854],
+          ["BSI", 20.18431742404475],
+          ["B4", 17.595234353121366],
+          ["NDVI", 16.349938260318034],
+          ["NDBI", 14.558815028836301],
+          ["B11", 11.83382497479579],
+          ["NDWI", 11.66281321369378],
+          ["B2", 8.436411993067665],
+          ["B8", 7.239987376536107],
+          ["B3", 5.121951441603909],
+        ];
+
+        function updateFeatureImportanceChart() {
+          const canvas = document.getElementById("feature-importance-chart");
+
+          if (!canvas || typeof Chart === "undefined") {
+            return false;
+          }
+
+          const existingChart = Chart.getChart(canvas);
+
+          if (!existingChart) {
+            return false;
+          }
+
+          existingChart.data.labels = featureImportanceData.map(
+            ([feature]) => feature,
+          );
+
+          existingChart.data.datasets[0].data = featureImportanceData.map(
+            ([, value]) => value,
+          );
+
+          existingChart.data.datasets[0].backgroundColor =
+            featureImportanceData.map(([feature]) =>
+              feature === "B12" ? "#8bc34a" : "#102c3a",
+            );
+
+          existingChart.data.datasets[0].borderColor =
+            featureImportanceData.map(([feature]) =>
+              feature === "B12" ? "#7cb342" : "#102c3a",
+            );
+
+          existingChart.options.plugins.tooltip.callbacks.label = function (
+            context,
+          ) {
+            return (
+              context.label +
+              ": " +
+              Number(context.raw).toLocaleString("id-ID", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 4,
+              })
+            );
+          };
+
+          existingChart.update();
+          return true;
+        }
+
+        if (updateFeatureImportanceChart()) {
+          return;
+        }
+
+        let attempts = 0;
+        const interval = window.setInterval(function () {
+          attempts += 1;
+
+          if (updateFeatureImportanceChart() || attempts >= 30) {
+            window.clearInterval(interval);
+          }
+        }, 200);
+      });
+    </script>
   </body>
 </html>
